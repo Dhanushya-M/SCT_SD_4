@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-commerce Product Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input, select {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #f8f8f8;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .download-button {
+            margin-top: 15px;
+        }
+        .download-button button {
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .download-button button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>📦 E-commerce Product Listings</h1>
+
+    <form method="get" action="/">
+        <input type="text" name="title" placeholder="Search by title" value="{{ title_query }}">
+        <select name="rating">
+            <option value="All" {% if rating_query == "All" %}selected{% endif %}>All Ratings</option>
+            <option value="One" {% if rating_query == "One" %}selected{% endif %}>One</option>
+            <option value="Two" {% if rating_query == "Two" %}selected{% endif %}>Two</option>
+            <option value="Three" {% if rating_query == "Three" %}selected{% endif %}>Three</option>
+            <option value="Four" {% if rating_query == "Four" %}selected{% endif %}>Four</option>
+            <option value="Five" {% if rating_query == "Five" %}selected{% endif %}>Five</option>
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- ✅ Download Button -->
+    <div class="download-button">
+        <form method="get" action="/download">
+            <button type="submit">⬇️ Download CSV</button>
+        </form>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td>{{ product.title }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.rating }}</td>
+                <td><a href="{{ product.link }}" target="_blank">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
